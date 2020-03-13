@@ -1,4 +1,4 @@
-﻿
+﻿@model List<DataAccessLayer.doctordata>
 @{
     Layout = null;
 }
@@ -12,7 +12,25 @@
 </head>
 <body>
     <div> 
-        <h2>requested doc's info ll be displayed</h2>
+        <table>
+            
+            @{
+                foreach (var i in Model)
+                {
+            <tr>
+                <td>@i.DoctorId</td>
+                <td>@i.Experience</td>
+                <td>@i.Fees</td>
+                <td>@i.HospitalId</td>
+                <td>@i.LoginId</td>
+                <td>@i.SpecialistId</td>
+                <td>@i.status</td>
+                <td><a href="~/admin/confirmdoctor?docid=@i.DoctorId">confirm</a></td>
+            </tr>
+                }
+            }
+
+                </table>
     </div>
 </body>
 </html>

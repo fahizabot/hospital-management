@@ -16,10 +16,29 @@ namespace hospital_management.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult SignIn(loginmodel model)
+        public ActionResult SignIn( loginmodel model)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                dataaccess_class dac = new dataaccess_class();
+                logindata log = dac.logindetails(model.UserName, model.PassWord);
+                Session["roleid"] = log.RoleId;
+                Session["userid"] = log.UserId;
+                if (log.RoleId == 1)
+                {
+                    return RedirectToAction("Admin_Dashboard", "Admin");
+                }
+                else if (log.RoleId == 2)
+                {
+                    return RedirectToAction("DoctorDashboard", "Doctor");
+                }
+                else if (log.RoleId == 3)
+                {
+                    return RedirectToAction("PatientHomepage", "Patient");
+                }
 
+            }
+            return View();
         }
 
         

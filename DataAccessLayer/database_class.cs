@@ -72,7 +72,7 @@ public class UserDetail
     [Required]
     public int Age { get; set; }
     [Required]
-    public int MobileNumber { get; set; }
+    public string MobileNumber { get; set; }
     [Required]
     public string Mail { get; set; }
     [Required]
@@ -114,6 +114,7 @@ public class Doctor
     [Required]
     public int SpecialistId { get; set; }
     public Specialist Specialist_Id { get; set; }
+        public string status { get; set; }
 }
 public class Specialist
 {

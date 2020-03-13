@@ -1,4 +1,4 @@
-﻿
+﻿@model DataAccessLayer.model.newdoctor
 @{
     Layout = null;
 }
@@ -13,6 +13,47 @@
 <body>
     <div>
         <h3>NewDoctor Register page</h3>
+        <h3>NewDoctor Register page</h3>
+
+        <h2 style="color:black;">Doctor's Registration Form</h2>
+        <style>
+            div {
+                background-color: khaki;
+            }
+        </style>
+        @using (Html.BeginForm("NewDoctor", "Doctor", FormMethod.Post))
+        {
+            <span>Name </span>
+            @Html.TextBoxFor(m=>m.UserName)<br />
+            @Html.ValidationMessageFor(m => m.UserName)<br />
+            <span>Mail </span>
+            @Html.TextBoxFor(m => m.Mail)<br />
+            @Html.ValidationMessageFor(m => m.Mail)<br />
+            <span>MobileNumber </span>
+            @Html.TextBoxFor(m => m.MobileNumber)<br />
+            @Html.ValidationMessageFor(m => m.MobileNumber)<br />
+            <span>Address </span>
+            @Html.TextBoxFor(m => m.Address)<br />
+            @Html.ValidationMessageFor(m => m.Address)<br />
+            <span>HospitalName </span>
+            @Html.TextBoxFor(m => m.HospitalName)<br />
+            @Html.ValidationMessageFor(m => m.HospitalName)<br />
+            <span>SpecialistName </span>
+            @Html.TextBoxFor(m => m.SpecialistName)<br />
+            @Html.ValidationMessageFor(m => m.SpecialistName)<br />
+            <span> Experience </span>
+            @Html.TextBoxFor(m => m.Experience)<br />
+            @Html.ValidationMessageFor(m => m.Experience)<br />
+            <span> Fee</span>
+            @Html.TextBoxFor(m => m.Fees)<br />
+            @Html.ValidationMessageFor(m => m.Fees)<br />
+            <span>Password</span>
+            @Html.TextBoxFor(m => m.PassWord)<br />
+            @Html.ValidationMessageFor(m => m.PassWord)<br />
+        <input type="submit" value="Send Request" />
+        }
+
+
     </div>
 </body>
 </html>

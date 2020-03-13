@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLayer.model
 {
-    class loginmodel
+    public class loginmodel
     {
         [Required]
         public string UserName { get; set; }
