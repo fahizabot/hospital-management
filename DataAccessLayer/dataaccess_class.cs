@@ -36,9 +36,28 @@ namespace DataAccessLayer
             dac.SaveChanges();
 
             //   Hospital hop = new Hospital();
+        }
 
+        public void patientdetails(string UserName, string Mail, string MobileNumber, string Address, string PassWord)
+        {
+            database_class dac = new database_class();
+            UserDetail us = new UserDetail();
+            us.Age = 30;
+            us.MobileNumber = MobileNumber;
+            us.Mail = Mail;
+            us.Address = Address;
+            dac.UserDetails.Add(us);
+            Login lg = new Login();
+            lg.UserId = us.UserId;
+            lg.RoleId = 3;
+            lg.UserName = UserName;
+            lg.PassWord = PassWord;
+            dac.Logins.Add(lg);
+            dac.SaveChanges();
 
         }
+    }
+
         public List<doctordata> doctorrequest()
         {
             database_class database = new database_class();

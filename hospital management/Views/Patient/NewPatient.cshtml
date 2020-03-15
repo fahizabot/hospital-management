@@ -1,4 +1,4 @@
-﻿
+﻿@model DataAccessLayer.model.newpatient
 @{
     Layout = null;
 }
@@ -11,8 +11,36 @@
     <title></title>
 </head>
 <body>
-    <div> 
-        <h3>NewPatient register page</h3>
+    <div>
+        <h3>New Patient register page</h3>
+        <h2 style="color:black;">Patient's Registration Form</h2>
+        <style>
+            div {
+                background-color: khaki;
+            }
+        </style>
+        @using (Html.BeginForm("NewPatient", "Patient", FormMethod.Post))
+        {
+            <span>Full Name </span>
+            @Html.TextBoxFor(m => m.UserName)<br />
+            @Html.ValidationMessageFor(m => m.UserName)<br />
+            <span>Mail </span>
+            @Html.TextBoxFor(m => m.Mail)<br />
+            @Html.ValidationMessageFor(m => m.Mail)<br />
+            <span>MobileNumber </span>
+            @Html.TextBoxFor(m => m.MobileNumber)<br />
+            @Html.ValidationMessageFor(m => m.MobileNumber)<br />
+            <span>Address </span>
+            @Html.TextBoxFor(m => m.Address)<br />
+            @Html.ValidationMessageFor(m => m.Address)<br />
+            <span>Password</span>
+            @Html.TextBoxFor(m => m.PassWord)<br />
+            @Html.ValidationMessageFor(m => m.PassWord)<br />
+            <span>Confirm Password</span>
+            @Html.TextBoxFor(m => m.PassWord)<br />
+            @Html.ValidationMessageFor(m => m.PassWord)<br />
+            <input type="submit" value="Add Patient" />
+        }
     </div>
 </body>
 </html>

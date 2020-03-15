@@ -142,6 +142,8 @@ public class Appointment
     [Required]
     public int Timimgs { get; set; }
     [Required]
+    public string Slot { get; set; }
+    [Required]
     public string Pay { get; set; }
     [Required]
     public string Description { get; set; }

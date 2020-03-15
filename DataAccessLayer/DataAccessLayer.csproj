@@ -71,6 +71,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="model\loginmodel.cs" />
     <Compile Include="model\newdoctor.cs" />
+    <Compile Include="model\newpatient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

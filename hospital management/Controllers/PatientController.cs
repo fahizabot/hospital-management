@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DataAccessLayer;
+using DataAccessLayer.model;
 
 namespace hospital_management.Controllers
 {
@@ -11,6 +13,13 @@ namespace hospital_management.Controllers
         // GET: Patient
         public ActionResult NewPatient()
         {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult NewPatient(newpatient model)
+        {
+            dataaccess_class dac = new dataaccess_class();
+            dac.patientdetails(model.UserName, model.Mail, model.MobileNumber, model.Address, model.PassWord);
             return View();
         }
 

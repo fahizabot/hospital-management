@@ -1,4 +1,4 @@
-﻿
+﻿@model List<DataAccessLayer.>
 @{
     Layout = null;
 }
@@ -11,7 +11,29 @@
     <title>DoctorDashboard</title>
 </head>
 <body>
-    <div> 
+    <div>
+        <table>
+
+            @{
+                foreach (var i in Model)
+                {
+                        <tr>
+                            <td>@i.UserName</td>
+                            <td>@i.Age</td>
+                            <td>@i.Timing</td>
+                            <td>@i.Slot</td>
+                            <td>@i.Desciption</td>
+                            <td>@i.Status</td>
+                            <td>@i.Pay</td>
+                            <td>@i.Description</td>
+                            <td><a href="~/Doctor/ConfirmPatient?patid=@i.UserId">confirm</a></td>
+                            <td><a href="~/Doctor/CancelPatient?patid=@i.UserId">cancel</a></td>
+                            <td><a href="~/Doctor/DoctorPrescription?patid=@i.UserId">add prescription</a></td>
+                        </tr>
+                }
+            }
+
+        </table>
     </div>
 </body>
 </html>

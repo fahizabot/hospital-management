@@ -11,8 +11,16 @@
     <title>DoctorPrescription</title>
 </head>
 <body>
-    <div> 
+    <div>
         <h2>doctor add prescription </h2>
+        @using (Html.BeginForm("DoctorPrescription", "Doctor"))
+        {
+            <span>
+                Add prescription
+            </span>
+            @Html.TextBox("prescription");
+            <input type="submit" value="Add" />
+        }
     </div>
 </body>
 </html>
