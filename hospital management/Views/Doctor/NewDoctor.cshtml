@@ -50,10 +50,13 @@
             <span>Password</span>
             @Html.TextBoxFor(m => m.PassWord)<br />
             @Html.ValidationMessageFor(m => m.PassWord)<br />
+            <span>Confirm Password</span>
             @Html.TextBoxFor(m => m.PassWord)<br />
             @Html.ValidationMessageFor(m => m.PassWord)<br />
-            <span>Confirm Password</span>
+
             <input type="submit" value="Send Request" />
+            <br />
+            <span><a href="~/LoginPage/SignIn">logout </a></span>
         }
 
 

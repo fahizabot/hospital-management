@@ -1,4 +1,4 @@
-﻿
+﻿@model DataAccessLayer.model.appointment
 @{
     Layout = null;
 }
@@ -11,7 +11,25 @@
     <title>Appointment</title>
 </head>
 <body>
-    <div> <h2>add appointment</h2>
+    <div>
+        <h2>add appointment</h2>
+        @using (Html.BeginForm("Appointment", "Patient", FormMethod.Post))
+        {
+            <span>Full Name </span>
+            @Html.TextBoxFor(m => m.UserName)<br />
+            @Html.ValidationMessageFor(m => m.UserName)<br />
+            <span>Slot</span>
+            @Html.TextBoxFor(m => m.Slot)<br />
+            @Html.ValidationMessageFor(m => m.Slot)<br />
+            <span>Timings </span>
+            @Html.TextBoxFor(m => m.Timings)<br />
+            @Html.ValidationMessageFor(m => m.Timings)<br />
+            <span>Problem </span>
+            @Html.TextBoxFor(m => m.Description)<br />
+            @Html.ValidationMessageFor(m => m.Description)<br />
+            
+            <input type="submit" value="Add Appointment" />
+        }
     </div>
 </body>
 </html>

@@ -33,11 +33,14 @@ namespace hospital_management.Controllers
         }
         public ActionResult Speciality()
         {
+            
             return View();
         }
-        public ActionResult HospitalDetails()
+        public ActionResult HospitalDetails(int spid)
         {
-            return View();
+            dataaccess_class dac = new dataaccess_class();
+            List<hospitaldata> hosp = dac.chooshosp(spid);
+            return View(hosp);
         }
         public ActionResult ChooseDoctor()
         {
@@ -46,6 +49,14 @@ namespace hospital_management.Controllers
 
         public ActionResult Appointment()
         {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Appointment(appointment model)
+        {
+            dataaccess_class dac = new dataaccess_class();
+            int userid = int.Parse(Session["userid"].ToString());
+           dac.addappointment(model.UserName,  model.Timings, model.Slot, model.Description, userid);
             return View();
         }
 

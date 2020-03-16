@@ -34,8 +34,19 @@ namespace DataAccessLayer
             lg.PassWord = PassWord;
             dac.Logins.Add(lg);
             dac.SaveChanges();
+            Doctor doc = new Doctor();
+            doc.Experience = Experience;
+            doc.Fees = Fees;
+            doc.HospitalId = 1;
+            doc.SpecialistId = 2;
+            doc.LoginId = lg.LoginId;
+            doc.status = "Requested";
+            dac.Doctors.Add(doc);
+            dac.SaveChanges();           
+        }
+        public void choosehosp()
+        {
 
-            //   Hospital hop = new Hospital();
         }
 
         public void patientdetails(string UserName, string Mail, string MobileNumber, string Address, string PassWord)
@@ -56,7 +67,60 @@ namespace DataAccessLayer
             dac.SaveChanges();
 
         }
-    }
+        
+        public void addappointment(  string UserName ,  int Timings ,string Slot, string Description,int userid)
+        {
+            database_class dac = new database_class();
+            Appointment app = new Appointment();
+            app.Status = "requested";
+            app.Timimgs = Timings;
+            app.Slot = Slot;
+            app.Pay="need to";
+            app.Description = Description;
+
+            app.LoginId = (from i in dac.Logins where i.UserId == userid select i.LoginId).FirstOrDefault();
+            app.DoctorId =3;
+            dac.Appointments.Add(app);
+            dac.SaveChanges();   
+
+        }
+
+        public List<patientdata> docdashboard()
+        {
+            database_class database = new database_class();
+            var appoint = from i in database.Appointments where i.Status == "requested" select i;
+            List<patientdata> pat = new List<patientdata>();
+            foreach (var i in appoint)
+            {
+                patientdata patdata = new patientdata();
+
+            }
+            return pat;
+        }
+
+
+        public List<hospitaldata> chooshosp(int spid)
+        {
+            database_class database = new database_class();
+            var sps = (from i in database.Doctors where i.SpecialistId == spid select i.HospitalId).Distinct();
+            List<hospitaldata> hosp = new List<hospitaldata>();
+            foreach(var i in sps)
+            {
+                var hospital = from k in database.Hospitals where k.HospitalId==i select k;
+                foreach (var j in hospital)
+                {
+                    hospitaldata hd = new hospitaldata();
+                    hd.hospitalId = j.HospitalId;
+                    hd.hospitalName = j.HospitalName;
+                    hd.MobileNumber = j.MobileNumber;
+                    hd.Address = j.Address;
+                    hosp.Add(hd);
+                }
+            }
+            
+           
+            return hosp;
+        }
 
         public List<doctordata> doctorrequest()
         {
@@ -77,6 +141,7 @@ namespace DataAccessLayer
             }
             return docs;
         }
+       
         public void confirmdoctor(int docid)
         {
             database_class database = new database_class();
@@ -107,6 +172,27 @@ namespace DataAccessLayer
         public int SpecialistId { get; set; }
       
         public string status { get; set; }
+    }
+    public class patientdata
+    {
+        public int LoginId { get; set; }
+        public int DoctorId { get; set; }
+        public string Status { get; set; }
+        public int Timings { get; set; }
+        public string Pay { get; set; }
+        public string Description { get; set; }
+        public string Slot { get; set; }
+        public string Prescription { get; set; }
+
+    }
+    public class hospitaldata
+    {
+        public int hospitalId { get; set; }
+        public string hospitalName{ get; set; }
+        public int MobileNumber { get; set; }
+        public string Address { get; set; }
+
+
     }
 
  

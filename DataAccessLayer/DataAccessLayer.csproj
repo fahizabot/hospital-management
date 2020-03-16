@@ -68,7 +68,17 @@
     <Compile Include="Migrations\202003131129458_statusupdate.designer.cs">
       <DependentUpon>202003131129458_statusupdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003160440262_change2.cs" />
+    <Compile Include="Migrations\202003160440262_change2.designer.cs">
+      <DependentUpon>202003160440262_change2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003160533594_change3.cs" />
+    <Compile Include="Migrations\202003160533594_change3.designer.cs">
+      <DependentUpon>202003160533594_change3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="model\appointment.cs" />
+    <Compile Include="model\hospdata.cs" />
     <Compile Include="model\loginmodel.cs" />
     <Compile Include="model\newdoctor.cs" />
     <Compile Include="model\newpatient.cs" />
@@ -89,6 +99,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003131129458_statusupdate.resx">
       <DependentUpon>202003131129458_statusupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003160440262_change2.resx">
+      <DependentUpon>202003160440262_change2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003160533594_change3.resx">
+      <DependentUpon>202003160533594_change3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

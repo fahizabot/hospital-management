@@ -1,4 +1,4 @@
-﻿
+﻿@model List<DataAccessLayer.hospitaldata>
 @{
     Layout = null;
 }
@@ -11,7 +11,28 @@
     <title>HospitalDetails</title>
 </head>
 <body>
-    <div> <h2>hosp details</h2>
+    <div>
+        <h2>hosp details</h2>
+        <table>
+            <tr>Hospital Name</tr>
+            <tr>Address </tr>
+            <tr>Phone Number </tr>
+            <tr>Choose Doctor</tr>
+
+            @{
+                foreach (var i in Model)
+                {
+                    <tr>
+                        <td>@i.hospitalName</td>
+                        <td>@i.Address</td>
+                        <td>@i.MobileNumber</td>
+
+                       
+                        <td><a href="~/Patient/Appointment?hospid=@i.hospitalId">appointment</a></td>
+                    </tr>
+                }
+            }
+        </table>
     </div>
 </body>
 </html>

@@ -28,7 +28,7 @@ namespace hospital_management.Controllers
         {
             return View();
         }
-        public ActionResult DoctorPrescription(int )
+        public ActionResult DoctorPrescription( )
         {
             return View();
         }

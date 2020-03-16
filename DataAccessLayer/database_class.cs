@@ -147,7 +147,9 @@ public class Appointment
     public string Pay { get; set; }
     [Required]
     public string Description { get; set; }
-}
+    [Required]
+   public string Prescription { get; set; }
+    }
 public class History
 {
     [Key]

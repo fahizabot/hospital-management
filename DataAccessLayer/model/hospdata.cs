@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.model
 {
-   public class newpatient
+   public class hospdata
     {
-        public string UserName { get; set; }
-        public string Mail { get; set; }
-        public string MobileNumber { get; set; }
+        public int hospitalId { get; set; }
+        public string hospitalName { get; set; }
+        public int MobileNumber { get; set; }
         public string Address { get; set; }
-        public string PassWord { get; set; }
-
     }
 }
