@@ -22,14 +22,14 @@
             @{
                 foreach (var i in Model)
                 {
-                    <tr>
-                        <td>@i.hospitalName</td>
-                        <td>@i.Address</td>
-                        <td>@i.MobileNumber</td>
+                        <tr>
+                            <td>@i.hospitalName</td>
+                            <td>@i.Address</td>
+                            <td>@i.MobileNumber</td>
+                            <td><a href="~/Patient/ChooseDoctor?hospid=@i.hospitalId">Click Here</a></td>
 
-                       
-                        <td><a href="~/Patient/Appointment?hospid=@i.hospitalId">appointment</a></td>
-                    </tr>
+                            
+                        </tr>
                 }
             }
         </table>

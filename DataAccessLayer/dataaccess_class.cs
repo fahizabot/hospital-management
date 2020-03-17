@@ -98,7 +98,6 @@ namespace DataAccessLayer
             return pat;
         }
 
-
         public List<hospitaldata> chooshosp(int spid)
         {
             database_class database = new database_class();
@@ -117,9 +116,27 @@ namespace DataAccessLayer
                     hosp.Add(hd);
                 }
             }
-            
-           
-            return hosp;
+             return hosp;
+        }
+
+        public List<choosedocdata> choosedoc(int hpid)
+        {
+            database_class database = new database_class();
+            var chdo = (from i in database.Doctors where i.HospitalId == hpid select i.LoginId).Distinct();
+            List<choosedocdata> doc = new List<choosedocdata>();
+            foreach (var i in chdo)
+            {
+                var doctor = from k in database.Logins where k.LoginId == i select k;
+                foreach (var j in doctor)
+                {
+                    choosedocdata cd = new choosedocdata();
+                    //var logid= need to get phone num from user table
+                    cd.DoctorId = j.LoginId;
+                    cd.DoctorName = j.UserName;
+                    doc.Add(cd);
+                }
+            }
+            return doc;
         }
 
         public List<doctordata> doctorrequest()
@@ -193,6 +210,13 @@ namespace DataAccessLayer
         public string Address { get; set; }
 
 
+    }
+    public class choosedocdata
+    { 
+        public int DoctorId { get; set; }
+        public string DoctorName { get; set; }
+        public int MobileNumber { get; set; }
+        public string Address { get; set; }
     }
 
  

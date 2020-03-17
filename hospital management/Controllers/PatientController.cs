@@ -42,10 +42,13 @@ namespace hospital_management.Controllers
             List<hospitaldata> hosp = dac.chooshosp(spid);
             return View(hosp);
         }
-        public ActionResult ChooseDoctor()
+        public ActionResult ChooseDoctor(int hpid)
         {
-            return View();
+            dataaccess_class dac = new dataaccess_class();
+            List<choosedocdata> doc = dac.choosedoc(hpid);
+            return View(doc);
         }
+      
 
         public ActionResult Appointment()
         {

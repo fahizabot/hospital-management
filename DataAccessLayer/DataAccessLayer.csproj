@@ -78,6 +78,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="model\appointment.cs" />
+    <Compile Include="model\choosedocm.cs" />
     <Compile Include="model\hospdata.cs" />
     <Compile Include="model\loginmodel.cs" />
     <Compile Include="model\newdoctor.cs" />
