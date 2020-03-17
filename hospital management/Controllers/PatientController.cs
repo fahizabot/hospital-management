@@ -47,11 +47,12 @@ namespace hospital_management.Controllers
             dataaccess_class dac = new dataaccess_class();
             List<choosedocdata> doc = dac.choosedoc(hpid);
             return View(doc);
-        }
-      
+        } 
 
-        public ActionResult Appointment()
+        public ActionResult Appointment(int docid)
         {
+            dataaccess_class dac = new dataaccess_class();
+            Session["docid"] = docid;
             return View();
         }
         [HttpPost]
@@ -59,7 +60,7 @@ namespace hospital_management.Controllers
         {
             dataaccess_class dac = new dataaccess_class();
             int userid = int.Parse(Session["userid"].ToString());
-           dac.addappointment(model.UserName,  model.Timings, model.Slot, model.Description, userid);
+           dac.addappointment(model.UserName,  model.Timings, model.Slot, model.Description, userid,int.Parse(Session["docid"].ToString()));
             return View();
         }
 

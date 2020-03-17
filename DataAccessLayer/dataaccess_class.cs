@@ -44,10 +44,7 @@ namespace DataAccessLayer
             dac.Doctors.Add(doc);
             dac.SaveChanges();           
         }
-        public void choosehosp()
-        {
-
-        }
+        
 
         public void patientdetails(string UserName, string Mail, string MobileNumber, string Address, string PassWord)
         {
@@ -68,18 +65,18 @@ namespace DataAccessLayer
 
         }
         
-        public void addappointment(  string UserName ,  int Timings ,string Slot, string Description,int userid)
+        public void addappointment(  string UserName ,  int Timings ,string Slot, string Description,int userid,int docid)
         {
             database_class dac = new database_class();
             Appointment app = new Appointment();
             app.Status = "requested";
             app.Timimgs = Timings;
             app.Slot = Slot;
-            app.Pay="need to";
+            app.Pay="pay";
             app.Description = Description;
-
+            app.Prescription = "usedef";//not required
             app.LoginId = (from i in dac.Logins where i.UserId == userid select i.LoginId).FirstOrDefault();
-            app.DoctorId =3;
+            app.DoctorId = docid;
             dac.Appointments.Add(app);
             dac.SaveChanges();   
 
@@ -93,9 +90,21 @@ namespace DataAccessLayer
             foreach (var i in appoint)
             {
                 patientdata patdata = new patientdata();
-
+                patdata.Status = i.Status;
+                patdata.Timings = i.Timimgs;
+                patdata.Slot = i.Slot;
+                patdata.Pay = i.Pay;
+                patdata.Description = i.Description;
+                pat.Add(patdata);
             }
             return pat;
+        }
+        public void confirmpatient(int logid)
+        {
+            database_class database = new database_class();
+            var pat = (from i in database.Appointments where i.LoginId == logid select i).FirstOrDefault();
+            pat.Status = "confirmed";
+            database.SaveChanges();
         }
 
         public List<hospitaldata> chooshosp(int spid)
@@ -119,20 +128,21 @@ namespace DataAccessLayer
              return hosp;
         }
 
-        public List<choosedocdata> choosedoc(int hpid)
+        public List<choosedocdata> choosedoc(int hospid)
         {
             database_class database = new database_class();
-            var chdo = (from i in database.Doctors where i.HospitalId == hpid select i.LoginId).Distinct();
+            var chdo = (from i in database.Doctors where i.HospitalId == hospid select i.LoginId).Distinct();
             List<choosedocdata> doc = new List<choosedocdata>();
             foreach (var i in chdo)
             {
-                var doctor = from k in database.Logins where k.LoginId == i select k;
+                var doctor = from k in database.Logins.Include("User_Id") where k.LoginId == i select k;
                 foreach (var j in doctor)
                 {
                     choosedocdata cd = new choosedocdata();
-                    //var logid= need to get phone num from user table
-                    cd.DoctorId = j.LoginId;
+                    cd.DoctorId = (from k in database.Doctors where k.LoginId==j.LoginId select k.DoctorId).FirstOrDefault();
                     cd.DoctorName = j.UserName;
+                    cd.Address = j.User_Id.Address;
+                    cd.MobileNumber = j.User_Id.MobileNumber;
                     doc.Add(cd);
                 }
             }
@@ -215,8 +225,12 @@ namespace DataAccessLayer
     { 
         public int DoctorId { get; set; }
         public string DoctorName { get; set; }
-        public int MobileNumber { get; set; }
+        public string MobileNumber { get; set; }
         public string Address { get; set; }
+    }
+    public class appointdata
+    {
+        public int docid { get; set; }
     }
 
  

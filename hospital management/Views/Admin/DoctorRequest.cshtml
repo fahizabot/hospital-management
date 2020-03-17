@@ -12,25 +12,48 @@
 </head>
 <body>
     <div> 
-        <table>
-            
+        <table border="1">
+
+            <tr>
+                <td>
+                    <p>Doctor Id</p>
+                </td>
+                <td>
+                    <p>Experience</p>
+                </td>
+                <td>
+                    <p>Fees</p>
+                </td>
+                <td>
+                    <p>Hospital Id</p>
+                </td>
+                <td>
+                    <p>Login Id</p>
+                </td>
+                <td>
+                    <p>Specialist Id</p>
+                </td>
+                <td>
+                    <p>Status</p>
+                </td>
+            </tr>
             @{
                 foreach (var i in Model)
                 {
-            <tr>
-                <td>@i.DoctorId</td>
-                <td>@i.Experience</td>
-                <td>@i.Fees</td>
-                <td>@i.HospitalId</td>
-                <td>@i.LoginId</td>
-                <td>@i.SpecialistId</td>
-                <td>@i.status</td>
-                <td><a href="~/Admin/confirmdoctor?docid=@i.DoctorId">confirm</a></td>
-            </tr>
+                    <tr>
+                        <td>@i.DoctorId</td>
+                        <td>@i.Experience</td>
+                        <td>@i.Fees</td>
+                        <td>@i.HospitalId</td>
+                        <td>@i.LoginId</td>
+                        <td>@i.SpecialistId</td>
+                        <td>@i.status</td>
+                        <td><a href="~/Admin/confirmdoctor?docid=@i.DoctorId">confirm</a></td>
+                    </tr>
                 }
             }
 
-                </table>
+        </table>
     </div>
 </body>
 </html>

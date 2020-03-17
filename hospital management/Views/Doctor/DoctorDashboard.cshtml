@@ -12,23 +12,29 @@
 </head>
 <body>
     <div>
-        <table>
+        <table border="1">
+            <tr>
+                <td><p>Status</p></td>
+                <td><p>Timings</p></td>
+                <td><p>Slot</p></td>
+                <td><p>Description</p></td>
+                <td><p>Pay</p></td>
+              
+            </tr>
 
             @{
                 foreach (var i in Model)
                 {
-                        <tr>
-                            <td>@i.UserName</td>
-                            <td>@i.Age</td>
-                            <td>@i.Timing</td>
-                            <td>@i.Slot</td>
-                            <td>@i.Desciption</td>
-                            <td>@i.Status</td>
-                            <td>@i.Pay</td>
-                            <td><a href="~/Doctor/ConfirmPatient">confirm</a></td>
-                            <td><a href="~/Doctor/CancelPatient">cancel</a></td>
-                            <td><a href="~/Doctor/DoctorPrescription">add prescription</a></td>
-                        </tr>
+                    <tr>
+                        <td>@i.Status</td>
+                        <td>@i.Timings</td>
+                        <td>@i.Slot</td>
+                        <td>@i.Description</td>
+                        <td>@i.Pay</td>
+                        <td><a href="~/Doctor/ConfirmPatient?logid=@i.LoginId">confirm</a></td>
+                        <td><a href="~/Doctor/CancelPatient">cancel</a></td>
+                        <td><a href="~/Doctor/DoctorPrescription">add prescription</a></td>
+                    </tr>
                 }
             }
 

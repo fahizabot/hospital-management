@@ -12,26 +12,32 @@
     <title>SignIn</title>
 </head>
 <body>
-    <div>
-        <span>signin page</span>
-        <br>
-        
+    <center>
+        <div>
+            <span>signin page</span>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
 
-                <h2>login</h2>
-                @using (Html.BeginForm("SignIn", "LoginPage", FormMethod.Post))
-                {
 
-                    @Html.EditorForModel()
-                    @Html.ValidationSummary()
-                    <input type="submit" value="Login" />
-                }
-           
-        
+            <h2>login</h2>
+            @using (Html.BeginForm("SignIn", "LoginPage", FormMethod.Post))
+            {
 
-        <span><a href="~/Patient/NewPatient">Register as New Patient</a></span>
-        <br>
-        <span><a href="~/Doctor/NewDoctor">  Register as New Doctor </a> </span>
-    </div>
+                @Html.EditorForModel()
+                @Html.ValidationSummary()
+                <input type="submit" value="Login" />
+            }
+
+
+
+            <span><a href="~/Patient/NewPatient">Register as New Patient</a></span>
+            <br>
+            <span><a href="~/Doctor/NewDoctor">  Register as New Doctor </a> </span>
+        </div>
+        </center>
 
 </body>
 </html>

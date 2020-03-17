@@ -26,7 +26,18 @@ namespace hospital_management.Controllers
 
         public ActionResult DoctorDashboard()
         {
-            return View();
+            dataaccess_class data = new dataaccess_class();
+            List<patientdata> pat = data.docdashboard();
+            return View(pat);
+        }
+
+        public ActionResult ConfirmPatient(int logid)
+        {
+            dataaccess_class data = new dataaccess_class();
+           
+            data.confirmpatient(logid);
+
+            return RedirectToAction("DoctorDashboard", "Doctor");
         }
         public ActionResult DoctorPrescription( )
         {
