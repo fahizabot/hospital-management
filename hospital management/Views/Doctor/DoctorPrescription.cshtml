@@ -1,6 +1,6 @@
 ﻿
 @{
-    Layout = null;
+    
 }
 
 <!DOCTYPE html>
@@ -12,13 +12,15 @@
 </head>
 <body>
     <div>
-        <h2>doctor add prescription </h2>
+        
+        <h3> Add Prescription </h3>
         @using (Html.BeginForm("DoctorPrescription", "Doctor"))
         {
             <span>
                 Add prescription
             </span>
             @Html.TextBox("prescription");
+
             <input type="submit" value="Add" />
         }
     </div>

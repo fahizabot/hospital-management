@@ -18,9 +18,13 @@ namespace hospital_management.Controllers
         [HttpPost]
         public ActionResult NewPatient(newpatient model)
         {
-            dataaccess_class dac = new dataaccess_class();
-            dac.patientdetails(model.UserName, model.Mail, model.MobileNumber, model.Address, model.PassWord);
-            return View();
+            if (ModelState.IsValid)
+            {
+                dataaccess_class dac = new dataaccess_class();
+                dac.patientdetails(model.UserName, model.Mail, model.Age, model.MobileNumber, model.Address, model.PassWord);
+            }
+                return View();
+            
         }
 
         public ActionResult PatientHomepage()
@@ -29,7 +33,20 @@ namespace hospital_management.Controllers
         }
         public ActionResult PatientDashboard()
         {
-            return View();
+             dataaccess_class data = new dataaccess_class();
+            int id = int.Parse(Session["loginid"].ToString());
+            List<patientdata> apd = data.patdashboard(id);
+            return View(apd);
+            
+        }
+        public ActionResult PayDoctor(int appid)
+        {
+            dataaccess_class data = new dataaccess_class();
+           
+            data.paydoctor(appid);
+
+            return RedirectToAction("PatientDashboard", "Patient");
+           
         }
         public ActionResult Speciality()
         {
@@ -51,8 +68,11 @@ namespace hospital_management.Controllers
 
         public ActionResult Appointment(int docid)
         {
-            dataaccess_class dac = new dataaccess_class();
-            Session["docid"] = docid;
+            if (ModelState.IsValid)
+            {
+                dataaccess_class dac = new dataaccess_class();
+                Session["docid"] = docid;
+            }
             return View();
         }
         [HttpPost]
@@ -60,7 +80,8 @@ namespace hospital_management.Controllers
         {
             dataaccess_class dac = new dataaccess_class();
             int userid = int.Parse(Session["userid"].ToString());
-           dac.addappointment(model.UserName,  model.Timings, model.Slot, model.Description, userid,int.Parse(Session["docid"].ToString()));
+            int loginid = int.Parse(Session["loginid"].ToString());
+            dac.addappointment(model.UserName,  model.Timings, model.Slot, model.Description, userid,loginid,int.Parse(Session["docid"].ToString()));
             return View();
         }
 

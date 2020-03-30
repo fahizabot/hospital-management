@@ -1,6 +1,6 @@
 ﻿@model List<DataAccessLayer.patientdata>
 @{
-    Layout = null;
+    
 }
 
 <!DOCTYPE html>
@@ -12,6 +12,7 @@
 </head>
 <body>
     <div>
+        <H5>DoctorDashboard</H5>
         <table border="1">
             <tr>
                 <td><p>Status</p></td>
@@ -19,7 +20,7 @@
                 <td><p>Slot</p></td>
                 <td><p>Description</p></td>
                 <td><p>Pay</p></td>
-              
+
             </tr>
 
             @{
@@ -31,9 +32,12 @@
                         <td>@i.Slot</td>
                         <td>@i.Description</td>
                         <td>@i.Pay</td>
-                        <td><a href="~/Doctor/ConfirmPatient?logid=@i.LoginId">confirm</a></td>
-                        <td><a href="~/Doctor/CancelPatient">cancel</a></td>
-                        <td><a href="~/Doctor/DoctorPrescription">add prescription</a></td>
+                        @if (i.Status == "requested")
+                        {
+                            <td><a href="~/Doctor/ConfirmPatient?appid=@i.AppointmentId">confirm</a></td>
+                            <td><a href="~/Doctor/CancelPatient?appid=@i.AppointmentId">cancel</a></td>
+                        }
+                        <td><a href="~/Doctor/DoctorPrescription?appid=@i.AppointmentId">add prescription</a></td>
                     </tr>
                 }
             }

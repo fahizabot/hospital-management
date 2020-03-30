@@ -1,6 +1,6 @@
 ﻿@model DataAccessLayer.model.newpatient
 @{
-    Layout = null;
+   
 }
 
 <!DOCTYPE html>
@@ -8,39 +8,76 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title></title>
+    <title>New Patient</title>
 </head>
 <body>
     <div>
-        <h3>New Patient register page</h3>
-        <h2 style="color:black;">Patient's Registration Form</h2>
-        <style>
-            div {
-                background-color: khaki;
-            }
-        </style>
+
+        <h3>New Patient</h3>
+
         @using (Html.BeginForm("NewPatient", "Patient", FormMethod.Post))
         {
-            <span>Full Name </span>
-            @Html.TextBoxFor(m => m.UserName)<br />
-            @Html.ValidationMessageFor(m => m.UserName)<br />
-            <span>Mail </span>
-            @Html.TextBoxFor(m => m.Mail)<br />
-            @Html.ValidationMessageFor(m => m.Mail)<br />
-            <span>MobileNumber </span>
-            @Html.TextBoxFor(m => m.MobileNumber)<br />
-            @Html.ValidationMessageFor(m => m.MobileNumber)<br />
-            <span>Address </span>
-            @Html.TextBoxFor(m => m.Address)<br />
-            @Html.ValidationMessageFor(m => m.Address)<br />
-            <span>Password</span>
-            @Html.TextBoxFor(m => m.PassWord)<br />
-            @Html.ValidationMessageFor(m => m.PassWord)<br />
-            <span>Confirm Password</span>
-            @Html.TextBoxFor(m => m.PassWord)<br />
-            @Html.ValidationMessageFor(m => m.PassWord)<br />
-            <input type="submit" value="Add Patient" />
-            <span> <a href="~/Patient/PatientHomepage"> Go to Homepage </a> </span>
+            <table>
+
+                <tr>
+                    <th>Full Name </th>
+                    <td> @Html.TextBoxFor(m => m.UserName)</td>
+
+                    @Html.ValidationMessageFor(m => m.UserName)
+
+                </tr>
+                <tr>
+                    <th>Mail </th>
+                    <td> @Html.TextBoxFor(m => m.Mail)</td>
+
+                    @Html.ValidationMessageFor(m => m.Mail)
+
+                </tr>
+                <tr>
+                    <th>MobileNumber </th>
+                    <td>@Html.TextBoxFor(m => m.MobileNumber)</td>
+
+                    @Html.ValidationMessageFor(m => m.MobileNumber)
+
+                </tr>
+                <tr>
+                    <th>Age </th>
+                    <td>@Html.TextBoxFor(m => m.Age)</td>
+
+                    @Html.ValidationMessageFor(m => m.Age)
+
+                </tr>
+                <tr>
+                    <th>Address </th>
+                    <td> @Html.TextBoxFor(m => m.Address)</td>
+
+                    @Html.ValidationMessageFor(m => m.Address)
+
+                </tr>
+                <tr>
+                    <th>Password</th>
+                    <td>@Html.TextBoxFor(m => m.PassWord)</td>
+
+                    @Html.ValidationMessageFor(m => m.PassWord)
+
+                </tr>
+                <tr>
+                    <th>Confirm Password</th>
+                    <td>@Html.TextBoxFor(m => m.PassWord)</td>
+
+                    @Html.ValidationMessageFor(m => m.PassWord)
+
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Add Patient" /></td>
+
+                </tr>
+                <tr><td><span><a href="~/Patient/PatientHomepage"> Go to Homepage </a></span></td></tr>
+
+
+            </table>
+            @Html.ValidationSummary()
+
         }
     </div>
 </body>

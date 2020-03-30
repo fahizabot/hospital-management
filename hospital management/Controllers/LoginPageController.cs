@@ -24,6 +24,7 @@ namespace hospital_management.Controllers
                 logindata log = dac.logindetails(model.UserName, model.PassWord);
                 Session["roleid"] = log.RoleId;
                 Session["userid"] = log.UserId;
+                Session["loginid"] = log.LoginId;
                 if (log.RoleId == 1)
                 {
                     return RedirectToAction("Admin_Dashboard", "Admin");

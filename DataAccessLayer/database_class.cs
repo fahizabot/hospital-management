@@ -43,6 +43,7 @@ public class Role
     [Required]
     [Key]
     public int RoleId { get; set; }
+    [Required]
     public string RoleName { get; set; }
 
 }
@@ -76,7 +77,8 @@ public class UserDetail
     [Required]
     public string Mail { get; set; }
     [Required]
-    public string Address { get; set; }
+   
+   public string Address { get; set; }
 }
 public class Hospital
 {
@@ -88,7 +90,7 @@ public class Hospital
     [Required]
     public int DoctorLimit { get; set; }
     [Required]
-    public int MobileNumber { get; set; }
+    public string MobileNumber { get; set; }
     [Required]
     public string Address { get; set; }
 
@@ -122,7 +124,8 @@ public class Specialist
     [Required]
     public int SpecialistId { get; set; }
     [Required]
-    public string SpecialistName { get; set; }
+     
+        public string SpecialistName { get; set; }
 }
 public class Appointment
 {
@@ -147,7 +150,6 @@ public class Appointment
     public string Pay { get; set; }
     [Required]
     public string Description { get; set; }
-    [Required]
    public string Prescription { get; set; }
     }
 public class History
@@ -155,17 +157,21 @@ public class History
     [Key]
     [Required]
     public int RequestId { get; set; }
-    [ForeignKey("Login_Id")]
+   
+        [ForeignKey("Login_Id")]
     [Required]
     public int LoginId { get; set; }
     public Login Login_Id { get; set; }
-    [ForeignKey("Role_Id")]
+    
+       [ForeignKey("appointment_id")]
     [Required]
-    public int RoleId { get; set; }
-    public Role Role_Id { get; set; }
-    [Required]
+    public int AppointmentId { get; set; }
+  public Appointment appointment_id { get; set; }
+   
+        [Required]
     public string FromStatus { get; set; }
-    [Required]
+    
+        [Required]
     public string ToStatus { get; set; }
 }
          

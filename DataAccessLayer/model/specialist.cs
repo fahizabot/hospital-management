@@ -4,18 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-
 namespace DataAccessLayer.model
 {
-   public class hospdata
+    public class specialist
     {
         [Required]
-        public int hospitalId { get; set; }
+        public int SpecialistId { get; set; }
         [Required]
-        public string hospitalName { get; set; }
-        [Required]
-        public string MobileNumber { get; set; }
-        [Required]
-        public string Address { get; set; }
+        public string SpecialistName { get; set; }
     }
 }

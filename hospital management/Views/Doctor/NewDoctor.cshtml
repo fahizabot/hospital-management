@@ -1,7 +1,8 @@
 ﻿@model DataAccessLayer.model.newdoctor
 @{
-    Layout = null;
+   
 }
+
 
 <!DOCTYPE html>
 
@@ -12,54 +13,91 @@
 </head>
 <body>
     <div>
-        <h3>NewDoctor Register page</h3>
-        <h3>NewDoctor Register page</h3>
+
+
 
         <h2 style="color:black;">Doctor's Registration Form</h2>
-        <style>
-            div {
-                background-color: khaki;
+
+        <table>
+            @using (Html.BeginForm("NewDoctor", "Doctor", FormMethod.Post))
+            {
+
+                <tr>
+                    <td>Full Name </td>
+
+                    <td>  @Html.TextBoxFor(m => m.UserName)</td>
+
+                    @Html.ValidationMessageFor(m => m.UserName)
+
+                </tr>
+                <tr>
+                    <td>Mail Id </td>
+                    <td> @Html.TextBoxFor(m => m.Mail)</td>
+
+                    @Html.ValidationMessageFor(m => m.Mail)
+                </tr>
+                <tr>
+                    <td>Age </td>
+                    <td> @Html.TextBoxFor(m => m.Age)</td>
+
+                    @Html.ValidationMessageFor(m => m.Age)
+                </tr>
+                <tr>
+                    <td>Mobile Number </td>
+                    <td>@Html.TextBoxFor(m => m.MobileNumber)</td>
+
+                    @Html.ValidationMessageFor(m => m.MobileNumber)
+                </tr>
+                <tr>
+                    <td>Address </td>
+                    <td>@Html.TextBoxFor(m => m.Address)</td>
+
+                    @Html.ValidationMessageFor(m => m.Address)
+                </tr>
+                <tr>
+                    <td>Hospital Name </td>
+                    <td> @Html.DropDownListFor(m => m.HospitalName, ((SelectListItem[])ViewBag.hospitals))</td>
+
+                    @Html.ValidationMessageFor(m => m.HospitalName)
+                </tr>
+                <tr>
+                    <td>Specialist Name </td>
+                    <td> @Html.DropDownListFor(m => m.SpecialistName, ((SelectListItem[])ViewBag.specialists))</td>
+
+                    @Html.ValidationMessageFor(m => m.SpecialistName)
+                </tr>
+                <tr>
+                    <td> Experience </td>
+                    <td> @Html.TextBoxFor(m => m.Experience)</td>
+
+                    @Html.ValidationMessageFor(m => m.Experience)
+                </tr>
+                <tr>
+                    <td> Fee</td>
+                    <td>@Html.TextBoxFor(m => m.Fees)</td>
+
+                    @Html.ValidationMessageFor(m => m.Fees)
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td>@Html.TextBoxFor(m => m.PassWord)</td>
+
+                    @Html.ValidationMessageFor(m => m.PassWord)
+                </tr>
+                <tr>
+                    <td>Confirm Password</td>
+                    <td>@Html.TextBoxFor(m => m.PassWord)</td>
+
+                    @Html.ValidationMessageFor(m => m.PassWord)
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Send Request" /></td>
+
+                </tr>
+                <tr><td><span><a href="~/LoginPage/SignIn">logout </a></span></td></tr>
             }
-        </style>
-        @using (Html.BeginForm("NewDoctor", "Doctor", FormMethod.Post))
-        {
-            <span>Full Name </span>
-            @Html.TextBoxFor(m => m.UserName)<br />
-            @Html.ValidationMessageFor(m => m.UserName)<br />
-            <span>Mail Id </span>
-            @Html.TextBoxFor(m => m.Mail)<br />
-            @Html.ValidationMessageFor(m => m.Mail)<br />
-            <span>Mobile Number </span>
-            @Html.TextBoxFor(m => m.MobileNumber)<br />
-            @Html.ValidationMessageFor(m => m.MobileNumber)<br />
-            <span>Address </span>
-            @Html.TextBoxFor(m => m.Address)<br />
-            @Html.ValidationMessageFor(m => m.Address)<br />
-            <span>Hospital Name </span>
-            @Html.TextBoxFor(m => m.HospitalName)<br />
-            @Html.ValidationMessageFor(m => m.HospitalName)<br />
-            <span>Specialist Name </span>
-            @Html.TextBoxFor(m => m.SpecialistName)<br />
-            @Html.ValidationMessageFor(m => m.SpecialistName)<br />
-            <span> Experience </span>
-            @Html.TextBoxFor(m => m.Experience)<br />
-            @Html.ValidationMessageFor(m => m.Experience)<br />
-            <span> Fee</span>
-            @Html.TextBoxFor(m => m.Fees)<br />
-            @Html.ValidationMessageFor(m => m.Fees)<br />
-            <span>Password</span>
-            @Html.TextBoxFor(m => m.PassWord)<br />
-            @Html.ValidationMessageFor(m => m.PassWord)<br />
-            <span>Confirm Password</span>
-            @Html.TextBoxFor(m => m.PassWord)<br />
-            @Html.ValidationMessageFor(m => m.PassWord)<br />
 
-            <input type="submit" value="Send Request" />
-            <br />
-            <span><a href="~/LoginPage/SignIn">logout </a></span>
-        }
-
-
+        </table>
     </div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 ﻿@model List<DataAccessLayer.hospitaldata>
 @{
-    Layout = null;
+   
 }
 
 <!DOCTYPE html>
@@ -12,14 +12,14 @@
 </head>
 <body>
     <div>
-        <h2>hosp details</h2>
+        <h2>Hospital Details</h2>
 
         <table border="1">
             <tr> 
-            <td><p>Hospital Name</p></td>
-            <td><p>Address </p></td>
-            <td><p>Phone Number </p></td>
-            <td><p>Choose Doctor</p></td>
+            <th><p>Hospital Name</p></th>
+            <th><p>Address </p></th>
+            <th><p>Phone Number </p></th>
+            <th><p>Choose Doctor</p></th>
             </tr>
             @{
                 foreach (var i in Model)

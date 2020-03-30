@@ -1,6 +1,5 @@
 ﻿@model DataAccessLayer.model.appointment
 @{
-    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -12,25 +11,46 @@
 </head>
 <body>
     <div>
-        <h2>add appointment</h2>
+        <h2>Add Appointment</h2>
         @using (Html.BeginForm("Appointment", "Patient", FormMethod.Post))
         {
-            <span>Full Name </span>
-            @Html.TextBoxFor(m => m.UserName)<br />
-            @Html.ValidationMessageFor(m => m.UserName)<br />
-            <span>Slot</span>
-            @Html.TextBoxFor(m => m.Slot)<br />
-            @Html.ValidationMessageFor(m => m.Slot)<br />
-            <span>Timings </span>
-            @Html.TextBoxFor(m => m.Timings)<br />
-            @Html.ValidationMessageFor(m => m.Timings)<br />
-            <span>Problem </span>
-            @Html.TextBoxFor(m => m.Description)<br />
-            @Html.ValidationMessageFor(m => m.Description)<br />
+            <table>
+                <tr>
+                    <th>Full Name </th>
+                    <td>@Html.TextBoxFor(m => m.UserName)</td>
 
-            <input type="submit" value="Add Appointment" /><br/>
-            <span> <a href="~/Patient/PatientDashboard"> Patient Dashboard  </a> </span>
+                    @Html.ValidationMessageFor(m => m.UserName)
 
+                </tr>
+                <tr>
+                    <th>Slot</th>
+                    <td>@Html.TextBoxFor(m => m.Slot)</td>
+
+                    @Html.ValidationMessageFor(m => m.Slot)
+
+                </tr>
+                <tr>
+                    <th>Timings </th>
+                    <td>@Html.TextBoxFor(m => m.Timings)</td>
+
+                    @Html.ValidationMessageFor(m => m.Timings)
+
+                </tr>
+                <tr>
+                    <th>Problem </th>
+                    <td>@Html.TextBoxFor(m => m.Description)</td>
+
+                    @Html.ValidationMessageFor(m => m.Description)
+
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Add Appointment" /></td>
+                </tr>
+                <tr>
+                    <td> <a href="~/Patient/PatientDashboard"> Patient Dashboard  </a> </td>
+                </tr>
+            </table>
+            @Html.ValidationSummary()
         }
     </div>
 </body>

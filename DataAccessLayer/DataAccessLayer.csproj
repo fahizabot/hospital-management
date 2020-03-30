@@ -56,25 +56,9 @@
     <Compile Include="Class1.cs" />
     <Compile Include="dataaccess_class.cs" />
     <Compile Include="database_class.cs" />
-    <Compile Include="Migrations\202003120508024_change1.cs" />
-    <Compile Include="Migrations\202003120508024_change1.Designer.cs">
-      <DependentUpon>202003120508024_change1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003131041091_next.cs" />
-    <Compile Include="Migrations\202003131041091_next.designer.cs">
-      <DependentUpon>202003131041091_next.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003131129458_statusupdate.cs" />
-    <Compile Include="Migrations\202003131129458_statusupdate.designer.cs">
-      <DependentUpon>202003131129458_statusupdate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003160440262_change2.cs" />
-    <Compile Include="Migrations\202003160440262_change2.designer.cs">
-      <DependentUpon>202003160440262_change2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003160533594_change3.cs" />
-    <Compile Include="Migrations\202003160533594_change3.designer.cs">
-      <DependentUpon>202003160533594_change3.cs</DependentUpon>
+    <Compile Include="Migrations\202003291211137_fahima.cs" />
+    <Compile Include="Migrations\202003291211137_fahima.designer.cs">
+      <DependentUpon>202003291211137_fahima.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="model\appointment.cs" />
@@ -83,6 +67,7 @@
     <Compile Include="model\loginmodel.cs" />
     <Compile Include="model\newdoctor.cs" />
     <Compile Include="model\newpatient.cs" />
+    <Compile Include="model\specialist.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -92,20 +77,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003120508024_change1.resx">
-      <DependentUpon>202003120508024_change1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003131041091_next.resx">
-      <DependentUpon>202003131041091_next.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003131129458_statusupdate.resx">
-      <DependentUpon>202003131129458_statusupdate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003160440262_change2.resx">
-      <DependentUpon>202003160440262_change2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003160533594_change3.resx">
-      <DependentUpon>202003160533594_change3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003291211137_fahima.resx">
+      <DependentUpon>202003291211137_fahima.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

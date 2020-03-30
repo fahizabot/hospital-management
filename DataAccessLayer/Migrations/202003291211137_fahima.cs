@@ -1,9 +1,9 @@
-namespace DataAccessLayer.Migrations
+﻿namespace DataAccessLayer.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class change1 : DbMigration
+    public partial class fahima : DbMigration
     {
         public override void Up()
         {
@@ -16,12 +16,14 @@ namespace DataAccessLayer.Migrations
                         DoctorId = c.Int(nullable: false),
                         Status = c.String(nullable: false),
                         Timimgs = c.Int(nullable: false),
+                        Slot = c.String(nullable: false),
                         Pay = c.String(nullable: false),
                         Description = c.String(nullable: false),
+                        Prescription = c.String(),
                     })
                 .PrimaryKey(t => t.AppointmentId)
-                .ForeignKey("dbo.Doctors", t => t.DoctorId, cascadeDelete: true)
-                .ForeignKey("dbo.Logins", t => t.LoginId, cascadeDelete: false)
+                .ForeignKey("dbo.Doctors", t => t.DoctorId, cascadeDelete: false)
+                .ForeignKey("dbo.Logins", t => t.LoginId, cascadeDelete: true)
                 .Index(t => t.LoginId)
                 .Index(t => t.DoctorId);
             
@@ -35,11 +37,12 @@ namespace DataAccessLayer.Migrations
                         Fees = c.Int(nullable: false),
                         Experience = c.Int(nullable: false),
                         SpecialistId = c.Int(nullable: false),
+                        status = c.String(),
                     })
                 .PrimaryKey(t => t.DoctorId)
-                .ForeignKey("dbo.Hospitals", t => t.HospitalId, cascadeDelete: true)
+                .ForeignKey("dbo.Hospitals", t => t.HospitalId, cascadeDelete: false)
                 .ForeignKey("dbo.Logins", t => t.LoginId, cascadeDelete: false)
-                .ForeignKey("dbo.Specialists", t => t.SpecialistId, cascadeDelete: false)
+                .ForeignKey("dbo.Specialists", t => t.SpecialistId, cascadeDelete: true)
                 .Index(t => t.HospitalId)
                 .Index(t => t.LoginId)
                 .Index(t => t.SpecialistId);
@@ -51,7 +54,7 @@ namespace DataAccessLayer.Migrations
                         HospitalId = c.Int(nullable: false, identity: true),
                         HospitalName = c.String(nullable: false),
                         DoctorLimit = c.Int(nullable: false),
-                        MobileNumber = c.Int(nullable: false),
+                        MobileNumber = c.String(nullable: false),
                         Address = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.HospitalId);
@@ -67,8 +70,8 @@ namespace DataAccessLayer.Migrations
                         PassWord = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.LoginId)
-                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("dbo.UserDetails", t => t.UserId, cascadeDelete: false)
+                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: false)
+                .ForeignKey("dbo.UserDetails", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.RoleId)
                 .Index(t => t.UserId);
             
@@ -77,7 +80,7 @@ namespace DataAccessLayer.Migrations
                 c => new
                     {
                         RoleId = c.Int(nullable: false, identity: true),
-                        RoleName = c.String(),
+                        RoleName = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.RoleId);
             
@@ -87,7 +90,7 @@ namespace DataAccessLayer.Migrations
                     {
                         UserId = c.Int(nullable: false, identity: true),
                         Age = c.Int(nullable: false),
-                        MobileNumber = c.Int(nullable: false),
+                        MobileNumber = c.String(nullable: false),
                         Mail = c.String(nullable: false),
                         Address = c.String(nullable: false),
                     })
@@ -108,22 +111,22 @@ namespace DataAccessLayer.Migrations
                     {
                         RequestId = c.Int(nullable: false, identity: true),
                         LoginId = c.Int(nullable: false),
-                        RoleId = c.Int(nullable: false),
+                        AppointmentId = c.Int(nullable: false),
                         FromStatus = c.String(nullable: false),
                         ToStatus = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.RequestId)
+                .ForeignKey("dbo.Appointments", t => t.AppointmentId, cascadeDelete: false)
                 .ForeignKey("dbo.Logins", t => t.LoginId, cascadeDelete: true)
-                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: false)
                 .Index(t => t.LoginId)
-                .Index(t => t.RoleId);
+                .Index(t => t.AppointmentId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Histories", "RoleId", "dbo.Roles");
             DropForeignKey("dbo.Histories", "LoginId", "dbo.Logins");
+            DropForeignKey("dbo.Histories", "AppointmentId", "dbo.Appointments");
             DropForeignKey("dbo.Appointments", "LoginId", "dbo.Logins");
             DropForeignKey("dbo.Appointments", "DoctorId", "dbo.Doctors");
             DropForeignKey("dbo.Doctors", "SpecialistId", "dbo.Specialists");
@@ -131,7 +134,7 @@ namespace DataAccessLayer.Migrations
             DropForeignKey("dbo.Logins", "UserId", "dbo.UserDetails");
             DropForeignKey("dbo.Logins", "RoleId", "dbo.Roles");
             DropForeignKey("dbo.Doctors", "HospitalId", "dbo.Hospitals");
-            DropIndex("dbo.Histories", new[] { "RoleId" });
+            DropIndex("dbo.Histories", new[] { "AppointmentId" });
             DropIndex("dbo.Histories", new[] { "LoginId" });
             DropIndex("dbo.Logins", new[] { "UserId" });
             DropIndex("dbo.Logins", new[] { "RoleId" });

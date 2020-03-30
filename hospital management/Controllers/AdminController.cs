@@ -31,7 +31,15 @@ namespace hospital_management.Controllers
 
         public ActionResult DoctorActionflow()
         {
-            return View();
+            dataaccess_class data= new dataaccess_class();
+           List<patientdata> pat= data.actionflow();
+            return View(pat);
+        }
+        public ActionResult appointmenthistory(int appid)
+        {
+            dataaccess_class data = new dataaccess_class();
+            List<Historydata> his = data.appointhistory(appid);
+            return View(his);
         }
 
 

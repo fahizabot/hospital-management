@@ -1,0 +1,33 @@
+﻿@model List<DataAccessLayer.Historydata>
+@{
+    ViewBag.Title = "appointmenthistory";
+}
+
+<h2>Appointment History</h2>
+<table border="1">
+    <tr>
+        <th>Request IId</th>
+        <th>Login Id</th>
+        <th>From Status</th>
+        <th>To Status</th>
+    </tr>
+    @foreach(var i in Model)
+    {
+        <tr>
+         
+            <td>
+                @i.RequestId
+            </td>
+            <td>
+                @i.LoginId
+            </td>
+            <td>
+                @i.FromStatus
+            </td>
+            <td>
+                @i.ToStatus
+            </td>
+        </tr>
+    }
+</table>
+

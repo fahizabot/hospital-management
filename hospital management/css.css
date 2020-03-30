@@ -1,0 +1,38 @@
+﻿
+body {
+    background-image: url('../../Content/whiteltri.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+table {
+    align-content: center;
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    width: 100%;
+    
+}
+#logout{
+    float:right;
+    text-align:end;
+}
+
+th {
+    
+    text-align: center;
+}
+
+tr {
+    text-align: center;
+}
+
+p {
+    word-spacing: 30px;
+}
+
+a {
+    text-decoration: none;
+}
+

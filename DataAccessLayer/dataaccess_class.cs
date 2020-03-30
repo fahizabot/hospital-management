@@ -14,15 +14,16 @@ namespace DataAccessLayer
             var data = (from i in dac.Logins where i.UserName == username && i.PassWord == password select i).FirstOrDefault();
             logindata log = new logindata();
             log.UserId = data.UserId;
+            log.LoginId = data.LoginId;
             log.RoleId = data.RoleId;
             return log;
         }
 
-        public void doctordetails(string UserName, string Mail, string MobileNumber, string Address, string HospitalName, string SpecialistName, int Experience, int Fees, string PassWord)
+        public void doctordetails(string UserName, string Mail,int age, string MobileNumber, string Address, int Experience, int Fees, string PassWord,int hosp,int spec)
         {
             database_class dac = new database_class();
             UserDetail us = new UserDetail();
-            us.Age = 40;
+            us.Age = age;
             us.MobileNumber = MobileNumber;
             us.Mail = Mail;
             us.Address = Address;
@@ -37,8 +38,8 @@ namespace DataAccessLayer
             Doctor doc = new Doctor();
             doc.Experience = Experience;
             doc.Fees = Fees;
-            doc.HospitalId = 1;
-            doc.SpecialistId = 2;
+            doc.HospitalId = hosp;
+            doc.SpecialistId = spec;
             doc.LoginId = lg.LoginId;
             doc.status = "Requested";
             dac.Doctors.Add(doc);
@@ -46,11 +47,11 @@ namespace DataAccessLayer
         }
         
 
-        public void patientdetails(string UserName, string Mail, string MobileNumber, string Address, string PassWord)
+        public void patientdetails(string UserName, string Mail,int Age, string MobileNumber, string Address, string PassWord)
         {
             database_class dac = new database_class();
             UserDetail us = new UserDetail();
-            us.Age = 30;
+            us.Age =Age;
             us.MobileNumber = MobileNumber;
             us.Mail = Mail;
             us.Address = Address;
@@ -65,7 +66,7 @@ namespace DataAccessLayer
 
         }
         
-        public void addappointment(  string UserName ,  int Timings ,string Slot, string Description,int userid,int docid)
+        public void addappointment(  string UserName ,  int Timings ,string Slot, string Description,int userid,int loginid,int docid)
         {
             database_class dac = new database_class();
             Appointment app = new Appointment();
@@ -74,22 +75,59 @@ namespace DataAccessLayer
             app.Slot = Slot;
             app.Pay="pay";
             app.Description = Description;
-            app.Prescription = "usedef";//not required
+            //app.Prescription = "usedef";//not required
             app.LoginId = (from i in dac.Logins where i.UserId == userid select i.LoginId).FirstOrDefault();
             app.DoctorId = docid;
             dac.Appointments.Add(app);
-            dac.SaveChanges();   
+            dac.SaveChanges();
+
+            History history = new History();
+            history.AppointmentId = app.AppointmentId;
+            history.FromStatus = "none";
+            history.ToStatus = "requested";
+            history.LoginId = loginid;
+            dac.Histories.Add(history);
+            dac.SaveChanges();
 
         }
-
-        public List<patientdata> docdashboard()
+        public List<patientdata> patdashboard(int loginid)
+        {
+            database_class data =new database_class();
+            var appoint= from i in data.Appointments where i.LoginId==loginid  select i;
+           List<patientdata> apd = new List<patientdata>();
+            foreach(var i in appoint)
+                {
+                patientdata app = new patientdata();
+                app.AppointmentId=i.AppointmentId;
+                app.Status=i.Status;
+                app.Slot = i.Slot;
+                app.Timings = i.Timimgs;
+                app.Pay=i.Pay;
+                app.Description=i.Description;
+                app.Prescription=i.Prescription;
+                apd.Add(app);
+                }
+            return apd;
+        }
+         public void paydoctor(int appid)
         {
             database_class database = new database_class();
-            var appoint = from i in database.Appointments where i.Status == "requested" select i;
+            var app = (from i in database.Appointments where i.AppointmentId == appid select i).SingleOrDefault();
+            app.Pay = "paid";
+            database.SaveChanges();
+        }
+
+
+        public List<patientdata> docdashboard(int loginid)
+        {
+            database_class database = new database_class();
+            int docid = (from i in database.Doctors where i.LoginId == loginid select i.DoctorId).FirstOrDefault();
+            var appoint = from i in database.Appointments where i.DoctorId==docid select i;
             List<patientdata> pat = new List<patientdata>();
             foreach (var i in appoint)
             {
                 patientdata patdata = new patientdata();
+                patdata.AppointmentId = i.AppointmentId;
                 patdata.Status = i.Status;
                 patdata.Timings = i.Timimgs;
                 patdata.Slot = i.Slot;
@@ -99,11 +137,35 @@ namespace DataAccessLayer
             }
             return pat;
         }
-        public void confirmpatient(int logid)
+        public void confirmpatient(int appid,int loginid)
         {
             database_class database = new database_class();
-            var pat = (from i in database.Appointments where i.LoginId == logid select i).FirstOrDefault();
+            var pat = (from i in database.Appointments where i.AppointmentId == appid select i).FirstOrDefault();
             pat.Status = "confirmed";
+            database.SaveChanges();
+
+            History history = new History();
+            history.AppointmentId = appid;
+            history.FromStatus = "requested";
+            history.ToStatus = "confirm";
+            history.LoginId = loginid;
+            database.Histories.Add(history);
+            database.SaveChanges();
+        }
+
+        public void cancelpatient(int appid,int loginid)
+        {
+            database_class database = new database_class();
+            var pat = (from i in database.Appointments where i.AppointmentId == appid select i).FirstOrDefault();
+            pat.Status = "cancelled";
+            database.SaveChanges();
+
+            History history = new History();
+            history.AppointmentId = appid;
+            history.FromStatus = "requested";
+            history.ToStatus = "cancelled";
+            history.LoginId = loginid;
+            database.Histories.Add(history);
             database.SaveChanges();
         }
 
@@ -126,6 +188,38 @@ namespace DataAccessLayer
                 }
             }
              return hosp;
+        }
+        public List<hospitaldata> hospitals()
+        {
+            database_class database = new database_class();
+            var hospitals = from i in database.Hospitals select i;
+            List<hospitaldata> hosp = new List<hospitaldata>();
+
+            foreach (var j in hospitals)
+            {
+                hospitaldata hd = new hospitaldata();
+                hd.hospitalId = j.HospitalId;
+                hd.hospitalName = j.HospitalName;
+                hd.MobileNumber = j.MobileNumber;
+                hd.Address = j.Address;
+                hosp.Add(hd);
+            }
+            return hosp;
+
+        }
+        public List<specialitydata>speciality()
+        {
+            database_class database = new database_class();
+            var speciality = from i in database.Specialists select i;
+            List<specialitydata> spec = new List<specialitydata>();
+            foreach (var j in speciality)
+            {
+                specialitydata spd = new specialitydata();
+                spd.SpecialistId = j.SpecialistId;
+                spd.SpecialistName = j.SpecialistName;
+                spec.Add(spd);
+            }
+            return spec;
         }
 
         public List<choosedocdata> choosedoc(int hospid)
@@ -168,6 +262,28 @@ namespace DataAccessLayer
             }
             return docs;
         }
+        public List<patientdata>actionflow()
+        {
+           database_class database = new database_class();
+            //int docid = (from i in database.Doctors where i.LoginId == loginid select i.DoctorId).FirstOrDefault();
+            var appoint = from i in database.Appointments select i;
+            List<patientdata> pat = new List<patientdata>();
+            foreach (var i in appoint)
+            {
+                patientdata patdata = new patientdata();
+                patdata.AppointmentId = i.AppointmentId;
+                patdata.DoctorId=i.DoctorId;
+                patdata.LoginId=i.LoginId;
+                patdata.Status = i.Status;
+                patdata.Prescription = i.Prescription;
+                patdata.Timings = i.Timimgs;
+                patdata.Slot = i.Slot;
+                patdata.Pay = i.Pay;
+                patdata.Description = i.Description;
+                pat.Add(patdata);
+            }
+            return pat;
+        }
        
         public void confirmdoctor(int docid)
         {
@@ -176,10 +292,46 @@ namespace DataAccessLayer
             doc.status = "confirmed";
             database.SaveChanges();
         }
+        public void addprescription(string prescription, int appointmentid)
+        {
+            database_class database = new database_class();
+            var appointment = (from i in database.Appointments where i.AppointmentId == appointmentid select i).SingleOrDefault();
+            int docid = appointment.DoctorId;
+            appointment.Prescription = prescription;
+            appointment.Status = "completed";
+            database.SaveChanges();
+            History history = new History();
+            history.AppointmentId = appointmentid;
+            history.FromStatus = "confirmed";
+            history.ToStatus = "completed";
+            history.LoginId = (from i in database.Doctors where i.DoctorId == docid select i.LoginId).FirstOrDefault();
+            database.Histories.Add(history);
+            database.SaveChanges();
+
+        }
+        public List<Historydata> appointhistory(int appointmentid)
+        {
+            database_class database = new database_class();
+            var histories = from i in database.Histories where i.AppointmentId == appointmentid select i;
+            List<Historydata> historydatas = new List<Historydata>();
+            foreach(var i in histories)
+            {
+                Historydata h = new Historydata();
+                h.AppointmentId = i.AppointmentId;
+                h.FromStatus = i.FromStatus;
+                h.LoginId = i.LoginId;
+                h.RequestId = i.RequestId;
+                h.ToStatus = i.ToStatus;
+                historydatas.Add(h);
+            }
+            return historydatas;
+        }
+
     }
     
     public class logindata
     {
+        public int LoginId { get; set; }
         public int RoleId { get; set; }         
         public int UserId { get; set; }      
        
@@ -209,6 +361,7 @@ namespace DataAccessLayer
         public string Pay { get; set; }
         public string Description { get; set; }
         public string Slot { get; set; }
+        public int AppointmentId { get; set; }
         public string Prescription { get; set; }
 
     }
@@ -216,7 +369,7 @@ namespace DataAccessLayer
     {
         public int hospitalId { get; set; }
         public string hospitalName{ get; set; }
-        public int MobileNumber { get; set; }
+        public string MobileNumber { get; set; }
         public string Address { get; set; }
 
 
@@ -231,7 +384,24 @@ namespace DataAccessLayer
     public class appointdata
     {
         public int docid { get; set; }
+       
     }
+    public class Historydata
+    {
+       
+        public int RequestId { get; set; }
+        public int LoginId { get; set; }
+        public int AppointmentId { get; set; }
+        public string FromStatus { get; set; }
+        public string ToStatus { get; set; }
+    }
+    public class specialitydata
+    { 
+        public int SpecialistId { get; set; }
+        public string SpecialistName { get; set; }
+    }
+}
+
+
 
  
-}

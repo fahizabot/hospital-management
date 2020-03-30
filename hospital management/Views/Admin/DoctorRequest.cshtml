@@ -1,6 +1,6 @@
 ﻿@model List<DataAccessLayer.doctordata>
 @{
-    Layout = null;
+   
 }
 
 <!DOCTYPE html>
@@ -11,7 +11,8 @@
     <title>DoctorRequest</title>
 </head>
 <body>
-    <div> 
+    <div>
+        <H3>DoctorRequest</H3>
         <table border="1">
 
             <tr>
@@ -50,10 +51,14 @@
                         <td>@i.status</td>
                         <td><a href="~/Admin/confirmdoctor?docid=@i.DoctorId">confirm</a></td>
                     </tr>
+
+
+
                 }
             }
 
         </table>
+        <a href="~/Admin/AdminDashboard"> My Dashboard  </a>
     </div>
 </body>
 </html>
